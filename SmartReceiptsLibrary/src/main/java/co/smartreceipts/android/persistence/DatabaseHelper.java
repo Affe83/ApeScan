@@ -190,7 +190,7 @@ public final class DatabaseHelper extends SQLiteOpenHelper implements AutoComple
 
     // Tables Declarations
     // Remember to update the merge() command below when adding columns
-    private static final class TripsTable {
+    public static final class TripsTable {
         private TripsTable() {
         }
 

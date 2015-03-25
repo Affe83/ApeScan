@@ -1,6 +1,7 @@
 package co.smartreceipts.android.sync.provider.parse;
 
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ abstract class AbstractParseSyncHelper<T extends Syncable> {
         mNetworkProvider = networkProvider;
     }
 
-    final void submitSyncRequest(SyncRequest<T> request) {
+    final void submitSyncRequest(@NonNull SyncRequest<T> request) {
         if (mNetworkProvider.isNetworkAvailable()) {
             onSubmitSyncRequestWithNetwork(request);
         } else {
