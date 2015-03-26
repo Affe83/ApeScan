@@ -1,9 +1,9 @@
-package co.smartreceipts.android.sync.id;
+package co.smartreceipts.android.sync.model;
 
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
-import co.smartreceipts.android.sync.id.impl.UniqueId;
+import co.smartreceipts.android.sync.model.impl.UniqueId;
 
 /**
  * Operates as a unique identifier for synchronization data

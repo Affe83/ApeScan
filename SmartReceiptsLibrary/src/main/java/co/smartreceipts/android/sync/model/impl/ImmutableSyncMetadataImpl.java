@@ -6,16 +6,16 @@ import android.support.annotation.NonNull;
 
 import java.util.Date;
 
-import co.smartreceipts.android.sync.id.Identifier;
+import co.smartreceipts.android.sync.model.Identifier;
 import co.smartreceipts.android.sync.model.SyncSource;
 import co.smartreceipts.android.sync.model.SyncStatus;
-import co.smartreceipts.android.sync.model.Syncable;
+import co.smartreceipts.android.sync.model.SyncMetadata;
 
 /**
- * Provides an immutable implementation of the {@link co.smartreceipts.android.sync.model.Syncable} contract
+ * Provides an immutable implementation of the {@link co.smartreceipts.android.sync.model.SyncMetadata} contract
  * so that other objects have a standard means of consuming this information
  */
-public final class ImmutableSyncableImpl implements Syncable {
+public final class ImmutableSyncMetadataImpl implements SyncMetadata {
 
     private final Identifier mIdentifier;
     private final SyncSource mSyncSource;
@@ -23,8 +23,8 @@ public final class ImmutableSyncableImpl implements Syncable {
     private final Date mCreationDate;
     private final Date mLastModificationDate;
 
-    public ImmutableSyncableImpl(@NonNull Identifier identifier, @NonNull SyncSource syncSource, @NonNull SyncStatus syncStatus,
-                                 Date creationDate, Date lastModificationDate) {
+    public ImmutableSyncMetadataImpl(@NonNull Identifier identifier, @NonNull SyncSource syncSource, @NonNull SyncStatus syncStatus,
+                                     Date creationDate, Date lastModificationDate) {
         mIdentifier = identifier;
         mSyncSource = syncSource;
         mSyncStatus = syncStatus;
@@ -32,7 +32,7 @@ public final class ImmutableSyncableImpl implements Syncable {
         mLastModificationDate = lastModificationDate;
     }
 
-    private ImmutableSyncableImpl(Parcel in) {
+    private ImmutableSyncMetadataImpl(Parcel in) {
         this.mIdentifier = in.readParcelable(Identifier.class.getClassLoader());
         this.mSyncSource = SyncSource.values()[in.readInt()];
         this.mSyncStatus = SyncStatus.values()[in.readInt()];
@@ -79,7 +79,7 @@ public final class ImmutableSyncableImpl implements Syncable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ImmutableSyncableImpl that = (ImmutableSyncableImpl) o;
+        ImmutableSyncMetadataImpl that = (ImmutableSyncMetadataImpl) o;
 
         if (mCreationDate != null ? !mCreationDate.equals(that.mCreationDate) : that.mCreationDate != null)
             return false;
@@ -116,13 +116,13 @@ public final class ImmutableSyncableImpl implements Syncable {
         dest.writeLong(mLastModificationDate != null ? mLastModificationDate.getTime() : -1L);
     }
 
-    public static final Parcelable.Creator<ImmutableSyncableImpl> CREATOR = new Parcelable.Creator<ImmutableSyncableImpl>() {
-        public ImmutableSyncableImpl createFromParcel(Parcel source) {
-            return new ImmutableSyncableImpl(source);
+    public static final Parcelable.Creator<ImmutableSyncMetadataImpl> CREATOR = new Parcelable.Creator<ImmutableSyncMetadataImpl>() {
+        public ImmutableSyncMetadataImpl createFromParcel(Parcel source) {
+            return new ImmutableSyncMetadataImpl(source);
         }
 
-        public ImmutableSyncableImpl[] newArray(int size) {
-            return new ImmutableSyncableImpl[size];
+        public ImmutableSyncMetadataImpl[] newArray(int size) {
+            return new ImmutableSyncMetadataImpl[size];
         }
     };
 }

@@ -1,13 +1,12 @@
-package co.smartreceipts.android.sync.id.impl;
+package co.smartreceipts.android.sync.model.impl;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
-import co.smartreceipts.android.sync.id.Identifier;
+import co.smartreceipts.android.sync.model.Identifier;
 
 /**
- * An implementation of the {@link co.smartreceipts.android.sync.id.Identifier} interface
+ * An implementation of the {@link co.smartreceipts.android.sync.model.Identifier} interface
  * for unique ids for sync data.
  *
  * @author williambaumann

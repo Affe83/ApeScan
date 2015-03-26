@@ -3,7 +3,7 @@ package co.smartreceipts.android.sync.user.impl;
 import android.os.Parcel;
 import android.support.annotation.NonNull;
 
-import co.smartreceipts.android.sync.id.Identifier;
+import co.smartreceipts.android.sync.model.Identifier;
 import co.smartreceipts.android.sync.user.SyncUser;
 
 /**

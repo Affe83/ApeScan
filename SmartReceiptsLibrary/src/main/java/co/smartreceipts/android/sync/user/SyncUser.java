@@ -3,7 +3,7 @@ package co.smartreceipts.android.sync.user;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
-import co.smartreceipts.android.sync.id.Identifier;
+import co.smartreceipts.android.sync.model.Identifier;
 
 /**
  * Defines a number of core methods that all {@link co.smartreceipts.android.sync.user.SyncUser} objects should
@@ -14,7 +14,7 @@ import co.smartreceipts.android.sync.id.Identifier;
 public interface SyncUser extends Parcelable {
 
     /**
-     * @return - the {@link co.smartreceipts.android.sync.id.Identifier} for this user.
+     * @return - the {@link co.smartreceipts.android.sync.model.Identifier} for this user.
      */
     @NonNull
     Identifier getId();

@@ -5,25 +5,25 @@ import android.support.annotation.NonNull;
 import java.util.Date;
 
 import co.smartreceipts.android.model.factory.BuilderFactory;
-import co.smartreceipts.android.sync.id.Identifier;
-import co.smartreceipts.android.sync.id.impl.UniqueId;
+import co.smartreceipts.android.sync.model.Identifier;
+import co.smartreceipts.android.sync.model.impl.UniqueId;
 import co.smartreceipts.android.sync.model.SyncSource;
 import co.smartreceipts.android.sync.model.SyncStatus;
-import co.smartreceipts.android.sync.model.Syncable;
-import co.smartreceipts.android.sync.model.impl.ImmutableSyncableImpl;
+import co.smartreceipts.android.sync.model.SyncMetadata;
+import co.smartreceipts.android.sync.model.impl.ImmutableSyncMetadataImpl;
 
 /**
  * <p>
- * A {@link co.smartreceipts.android.sync.model.Syncable} {@link co.smartreceipts.android.model.factory.BuilderFactory}
- * implementation, which will be used to generate instances of {@link co.smartreceipts.android.sync.model.Syncable} objects.
+ * A {@link co.smartreceipts.android.sync.model.SyncMetadata} {@link co.smartreceipts.android.model.factory.BuilderFactory}
+ * implementation, which will be used to generate instances of {@link co.smartreceipts.android.sync.model.SyncMetadata} objects.
  * <p/>
  * <p>
  * If both a creation and last modification date are not defined via {@link #setCreationDate(java.util.Date)} and
  * {@link #setLastModificationDate(java.util.Date)} (or the {@code long} equivalents), the {@link #build()} will always
- * return {{@link co.smartreceipts.android.sync.model.Syncable#NEVER_SYNCED}}.
+ * return {{@link co.smartreceipts.android.sync.model.SyncMetadata#NEVER_SYNCED}}.
  * </p>
  */
-public final class SyncableBuilderFactory implements BuilderFactory<Syncable> {
+public final class SyncableBuilderFactory implements BuilderFactory<SyncMetadata> {
 
     private Identifier mIdentifier;
     private SyncSource mSource;
@@ -83,12 +83,12 @@ public final class SyncableBuilderFactory implements BuilderFactory<Syncable> {
 
     @NonNull
     @Override
-    public Syncable build() {
+    public SyncMetadata build() {
         if (mCreationDate == null || mLastModificationDate == null) {
-            return Syncable.NEVER_SYNCED;
+            return SyncMetadata.NEVER_SYNCED;
         } else {
             if (mIdentifier != null && mSource != null && mStatus != null) {
-                return new ImmutableSyncableImpl(mIdentifier, mSource, mStatus, mCreationDate, mLastModificationDate);
+                return new ImmutableSyncMetadataImpl(mIdentifier, mSource, mStatus, mCreationDate, mLastModificationDate);
             } else {
                 throw new IllegalArgumentException("Must defined an identifier, status, and source");
             }
