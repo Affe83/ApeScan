@@ -11,10 +11,11 @@ import co.smartreceipts.android.sync.request.SyncRequest;
  *
  * @author williambaumann
  */
-public class DistanceSyncResponse extends AbstractSyncResponse<Distance> {
+public class DistanceSyncResponse  {
 
+    /*
     public DistanceSyncResponse(Distance response, SyncRequest<Distance> request) {
-        super(response, request);
+        // super(response, request);
     }
 
     private DistanceSyncResponse(Parcel in) {
@@ -29,5 +30,5 @@ public class DistanceSyncResponse extends AbstractSyncResponse<Distance> {
         public DistanceSyncResponse[] newArray(int size) {
             return new DistanceSyncResponse[size];
         }
-    };
+    };*/
 }

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import co.smartreceipts.android.sync.model.Syncable;
 import co.smartreceipts.android.sync.response.SyncError;
 import co.smartreceipts.android.sync.request.SyncRequest;
 import co.smartreceipts.android.sync.response.SyncResponse;
@@ -18,7 +19,7 @@ import co.smartreceipts.android.sync.network.NetworkProvider;
  *
  * @author Will Baumann
  */
-abstract class AbstractParseSyncHelper<T extends Parcelable> {
+abstract class AbstractParseSyncHelper<T extends Syncable> {
 
     private final List<SyncRequest> mOutstandingRequests;
     private final NetworkProvider mNetworkProvider;

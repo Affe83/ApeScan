@@ -1,6 +1,7 @@
 package co.smartreceipts.android.sync.request.impl;
 
 import android.os.Parcel;
+import android.os.Parcelable;
 
 import co.smartreceipts.android.model.Receipt;
 import co.smartreceipts.android.sync.request.SyncRequestType;
@@ -11,17 +12,17 @@ import co.smartreceipts.android.sync.request.SyncRequestType;
  *
  * @author williambaumann
  */
-public class ReceiptSyncRequest extends AbstractSyncRequest<Receipt> {
+public class ReceiptSyncRequest {
 
     public ReceiptSyncRequest(Receipt requestData, SyncRequestType requestType) {
-        super(requestData, requestType, Receipt.class);
+        // super(requestData, requestType, Receipt.class);
     }
 
     private ReceiptSyncRequest(Parcel in) {
-        super(in);
+        // super(in);
     }
 
-    public static final Creator<ReceiptSyncRequest> CREATOR = new Creator<ReceiptSyncRequest>() {
+    public static final Parcelable.Creator<ReceiptSyncRequest> CREATOR = new Parcelable.Creator<ReceiptSyncRequest>() {
         public ReceiptSyncRequest createFromParcel(Parcel source) {
             return new ReceiptSyncRequest(source);
         }

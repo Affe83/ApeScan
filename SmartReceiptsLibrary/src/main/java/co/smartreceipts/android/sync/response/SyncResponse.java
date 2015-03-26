@@ -3,6 +3,7 @@ package co.smartreceipts.android.sync.response;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
+import co.smartreceipts.android.sync.model.Syncable;
 import co.smartreceipts.android.sync.request.SyncRequest;
 import co.smartreceipts.android.sync.request.SyncRequestType;
 
@@ -11,7 +12,7 @@ import co.smartreceipts.android.sync.request.SyncRequestType;
  *
  * @author williambaumann
  */
-public interface SyncResponse<T extends Parcelable> extends Parcelable {
+public interface SyncResponse<T extends Syncable> extends Parcelable {
 
     /**
      * @return - the {@link co.smartreceipts.android.sync.request.SyncRequest} that was used to

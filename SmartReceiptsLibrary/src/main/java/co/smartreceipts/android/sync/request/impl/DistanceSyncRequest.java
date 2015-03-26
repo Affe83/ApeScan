@@ -1,6 +1,7 @@
 package co.smartreceipts.android.sync.request.impl;
 
 import android.os.Parcel;
+import android.os.Parcelable;
 
 import co.smartreceipts.android.model.Distance;
 import co.smartreceipts.android.sync.request.SyncRequestType;
@@ -11,17 +12,17 @@ import co.smartreceipts.android.sync.request.SyncRequestType;
  *
  * @author williambaumann
  */
-public class DistanceSyncRequest extends AbstractSyncRequest<Distance> {
+public class DistanceSyncRequest  {
 
     public DistanceSyncRequest(Distance requestData, SyncRequestType requestType) {
-        super(requestData, requestType, Distance.class);
+        // super(requestData, requestType, Distance.class);
     }
 
     private DistanceSyncRequest(Parcel in) {
-        super(in);
+        // super(in);
     }
 
-    public static final Creator<DistanceSyncRequest> CREATOR = new Creator<DistanceSyncRequest>() {
+    public static final Parcelable.Creator<DistanceSyncRequest> CREATOR = new Parcelable.Creator<DistanceSyncRequest>() {
         public DistanceSyncRequest createFromParcel(Parcel source) {
             return new DistanceSyncRequest(source);
         }

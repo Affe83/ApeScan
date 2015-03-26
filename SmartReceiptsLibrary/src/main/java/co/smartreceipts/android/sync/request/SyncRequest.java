@@ -3,12 +3,14 @@ package co.smartreceipts.android.sync.request;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
+import co.smartreceipts.android.sync.model.Syncable;
+
 /**
  * Implementations of this class can handle how synchronization requests are transmitted
  * 
  * @author Will Baumann
  */
-public interface SyncRequest<T extends Parcelable> extends Parcelable {
+public interface SyncRequest<T extends Syncable> extends Parcelable {
 
 	/**
 	 * @return the {@link SyncRequestType} for this upload request

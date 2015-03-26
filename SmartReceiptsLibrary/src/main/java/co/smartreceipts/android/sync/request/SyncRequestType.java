@@ -9,5 +9,10 @@ import android.os.Parcelable;
  */
 public interface SyncRequestType extends Parcelable {
 
+    /**
+     * Gets the type of the request
+     *
+     * @return the type as a {@link java.lang.String}
+     */
     String getType();
 }

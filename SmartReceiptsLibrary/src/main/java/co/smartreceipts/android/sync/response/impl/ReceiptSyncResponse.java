@@ -11,8 +11,9 @@ import co.smartreceipts.android.sync.request.SyncRequest;
  *
  * @author williambaumann
  */
-public class ReceiptSyncResponse extends AbstractSyncResponse<Receipt> {
+public class ReceiptSyncResponse {
 
+    /*
     public ReceiptSyncResponse(Receipt response, SyncRequest<Receipt> request) {
         super(response, request);
     }
@@ -29,5 +30,5 @@ public class ReceiptSyncResponse extends AbstractSyncResponse<Receipt> {
         public ReceiptSyncResponse[] newArray(int size) {
             return new ReceiptSyncResponse[size];
         }
-    };
+    };*/
 }

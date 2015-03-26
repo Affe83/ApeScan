@@ -5,6 +5,7 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 import co.smartreceipts.android.model.Trip;
+import co.smartreceipts.android.sync.model.Syncable;
 import co.smartreceipts.android.sync.request.SyncRequest;
 import co.smartreceipts.android.sync.request.SyncRequestType;
 
@@ -14,7 +15,7 @@ import co.smartreceipts.android.sync.request.SyncRequestType;
  *
  * @author williambaumann
  */
-abstract class AbstractSyncRequest<T extends Parcelable> implements SyncRequest<T> {
+abstract class AbstractSyncRequest<T extends Syncable> implements SyncRequest<T> {
 
     private final SyncRequestType mSyncRequestType;
     private final T mRequestData;

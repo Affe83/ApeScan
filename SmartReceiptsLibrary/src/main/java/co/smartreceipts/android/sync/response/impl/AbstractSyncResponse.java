@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
+import co.smartreceipts.android.sync.model.Syncable;
 import co.smartreceipts.android.sync.request.SyncRequest;
 import co.smartreceipts.android.sync.response.SyncResponse;
 
@@ -13,7 +14,7 @@ import co.smartreceipts.android.sync.response.SyncResponse;
  *
  * @author williambaumann
  */
-class AbstractSyncResponse<T extends Parcelable> implements SyncResponse<T> {
+class AbstractSyncResponse<T extends Syncable> implements SyncResponse<T> {
 
     private final SyncRequest<T> mSyncRequest;
     private final T mResponse;
