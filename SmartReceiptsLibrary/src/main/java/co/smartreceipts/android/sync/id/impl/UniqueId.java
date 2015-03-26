@@ -1,6 +1,7 @@
 package co.smartreceipts.android.sync.id.impl;
 
 import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 import co.smartreceipts.android.sync.id.Identifier;
@@ -11,7 +12,7 @@ import co.smartreceipts.android.sync.id.Identifier;
  *
  * @author williambaumann
  */
-public class UniqueId implements Identifier {
+public final class UniqueId implements Identifier {
 
     private final String mId;
 

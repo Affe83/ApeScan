@@ -1,6 +1,7 @@
 package co.smartreceipts.android.sync;
 
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import co.smartreceipts.android.sync.request.SyncRequestType;
 import co.smartreceipts.android.sync.response.SyncError;
@@ -22,7 +23,7 @@ public interface SyncListener<T extends Parcelable> {
 	 * @param result
 	 *            - the {@link co.smartreceipts.android.sync.response.SyncResponse} that was received
 	 */
-	public void onSyncSuccess(SyncRequestType type, SyncResponse<T> result);
+	public void onSyncSuccess(@NonNull SyncRequestType type, @NonNull SyncResponse<T> result);
 
 	/**
 	 * This method will be called whenever our data has failed to synchronize with the back-end
@@ -32,5 +33,5 @@ public interface SyncListener<T extends Parcelable> {
 	 * @param exception
 	 *            - the {@link co.smartreceipts.android.sync.response.SyncError}, which details why the sync failed
 	 */
-	public void onSyncError(SyncRequestType type, SyncError exception);
+	public void onSyncError(@NonNull SyncRequestType type, @NonNull SyncError exception);
 }
