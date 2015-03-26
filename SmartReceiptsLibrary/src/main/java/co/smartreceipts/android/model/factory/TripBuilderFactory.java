@@ -17,6 +17,7 @@ import co.smartreceipts.android.model.Source;
 import co.smartreceipts.android.model.Trip;
 import co.smartreceipts.android.model.WBCurrency;
 import co.smartreceipts.android.model.impl.DefaultTripImpl;
+import co.smartreceipts.android.sync.model.SyncMetadata;
 
 /**
  * A {@link co.smartreceipts.android.model.Trip} {@link co.smartreceipts.android.model.factory.BuilderFactory}
@@ -158,6 +159,6 @@ public final class TripBuilderFactory implements BuilderFactory<Trip> {
     @Override
     @NonNull
     public Trip build() {
-        return new DefaultTripImpl(_dir, _startDate, _startTimeZone, _endDate, _endTimeZone, _defaultCurrency, _comment, _costCenter, _filter, _source);
+        return new DefaultTripImpl(_dir, _startDate, _startTimeZone, _endDate, _endTimeZone, _defaultCurrency, _comment, _costCenter, _filter, _source, SyncMetadata.NEVER_SYNCED);
     }
 }

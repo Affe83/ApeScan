@@ -19,19 +19,25 @@ import co.smartreceipts.android.model.Trip;
 import co.smartreceipts.android.model.WBCurrency;
 import co.smartreceipts.android.model.factory.PriceBuilderFactory;
 import co.smartreceipts.android.model.utils.ModelUtils;
+import co.smartreceipts.android.sync.model.SyncMetadata;
 
-public class DefaultTripImpl implements Trip {
+public final class DefaultTripImpl implements Trip {
 
     private final File mReportDirectory;
-    private String mComment, mCostCenter;
-    private Price mPrice, mDailySubTotal;
-    private Date mStartDate, mEndDate;
-    private TimeZone mStartTimeZone, mEndTimeZone;
-    private WBCurrency mDefaultCurrency;
-    private Source mSource;
+    private final String mComment;
+    private final String mCostCenter;
+    private Price mPrice;
+    private Price mDailySubTotal;
+    private final Date mStartDate;
+    private final Date mEndDate;
+    private final TimeZone mStartTimeZone;
+    private final TimeZone mEndTimeZone;
+    private final WBCurrency mDefaultCurrency;
+    private final Source mSource;
+    private final SyncMetadata mSyncMetadata;
     private Filter<Receipt> mFilter;
 
-    public DefaultTripImpl(File directory, Date startDate, TimeZone startTimeZone, Date endDate, TimeZone endTimeZone, WBCurrency defaultCurrency, String comment, String costCenter, Filter<Receipt> filter, Source source) {
+    public DefaultTripImpl(File directory, Date startDate, TimeZone startTimeZone, Date endDate, TimeZone endTimeZone, WBCurrency defaultCurrency, String comment, String costCenter, Filter<Receipt> filter, Source source, @NonNull SyncMetadata syncMetadata) {
         mReportDirectory = directory;
         mStartDate = startDate;
         mStartTimeZone = startTimeZone;
@@ -45,6 +51,7 @@ public class DefaultTripImpl implements Trip {
         // Sets a simple default for price and daily of 0
         mPrice = new PriceBuilderFactory().setPrice(0).setCurrency(defaultCurrency).build();
         mDailySubTotal = new PriceBuilderFactory().setPrice(0).setCurrency(defaultCurrency).build();
+        mSyncMetadata = syncMetadata;
     }
 
     private DefaultTripImpl(Parcel in) {
@@ -58,6 +65,7 @@ public class DefaultTripImpl implements Trip {
         mComment = in.readString();
         mCostCenter = in.readString();
         mDefaultCurrency = WBCurrency.getInstance(in.readString());
+        mSyncMetadata = in.readParcelable(SyncMetadata.class.getClassLoader());
         mSource = Source.Parcel;
     }
 
@@ -227,6 +235,12 @@ public class DefaultTripImpl implements Trip {
         return mFilter != null;
     }
 
+    @NonNull
+    @Override
+    public SyncMetadata getSyncMetadata() {
+        return mSyncMetadata;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -244,6 +258,7 @@ public class DefaultTripImpl implements Trip {
         dest.writeString(getComment());
         dest.writeString(getCostCenter());
         dest.writeString(getDefaultCurrencyCode());
+        dest.writeParcelable(getSyncMetadata(), flags);
     }
 
     @Override

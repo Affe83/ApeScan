@@ -9,8 +9,9 @@ import java.sql.Date;
 import java.util.TimeZone;
 
 import co.smartreceipts.android.filters.Filter;
+import co.smartreceipts.android.sync.model.Syncable;
 
-public interface Trip extends Parcelable, Priceable {
+public interface Trip extends Parcelable, Priceable, Syncable {
 
     public static final String PARCEL_KEY = Trip.class.getName();
 
