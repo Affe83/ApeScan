@@ -1,10 +1,10 @@
 package co.smartreceipts.android.sync.provider.parse;
 
+import android.support.annotation.NonNull;
+
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.SaveCallback;
-
-import org.apache.http.MethodNotSupportedException;
 
 import co.smartreceipts.android.model.Trip;
 import co.smartreceipts.android.model.factory.TripBuilderFactory;
@@ -12,10 +12,8 @@ import co.smartreceipts.android.persistence.DatabaseHelper;
 import co.smartreceipts.android.sync.model.SyncSource;
 import co.smartreceipts.android.sync.model.SyncStatus;
 import co.smartreceipts.android.sync.model.factory.SyncableBuilderFactory;
-import co.smartreceipts.android.sync.response.SyncError;
 import co.smartreceipts.android.sync.request.SyncRequest;
 import co.smartreceipts.android.sync.response.SyncResponse;
-import co.smartreceipts.android.sync.network.NetworkProvider;
 import co.smartreceipts.android.sync.response.impl.TripSyncResponse;
 
 /**
@@ -28,14 +26,11 @@ public class ParseTripSyncHelper extends AbstractParseSyncHelper<Trip> {
 
     private static final String TRIPS = "Trips";
 
-    public ParseTripSyncHelper(NetworkProvider networkProvider) {
-        super(networkProvider);
-    }
-
     @Override
-    protected SyncResponse<Trip> onSubmitSyncRequestWithNetwork(final SyncRequest<Trip> request) {
+    protected void onSubmitSyncRequestWithNetwork(@NonNull final SyncRequest<Trip> request) {
         final ParseObject parseObject = new ParseObject(TRIPS);
         final Trip trip = request.getRequestData();
+        trip.getSyncMetadata().getStatus() == SyncStatus.Synced
         parseObject.put(DatabaseHelper.TripsTable.COLUMN_NAME, trip.getName());
         parseObject.put(DatabaseHelper.TripsTable.COLUMN_FROM, trip.getStartDate());
         parseObject.put(DatabaseHelper.TripsTable.COLUMN_TO, trip.getEndDate());
