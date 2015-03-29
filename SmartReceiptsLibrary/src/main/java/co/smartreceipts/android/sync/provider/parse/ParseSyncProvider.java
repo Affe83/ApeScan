@@ -10,6 +10,8 @@ import co.smartreceipts.android.model.Trip;
 import co.smartreceipts.android.sync.network.NetworkProvider;
 import co.smartreceipts.android.sync.provider.SyncProvider;
 import co.smartreceipts.android.sync.request.SyncRequest;
+import co.smartreceipts.android.sync.response.listener.SyncListener;
+import co.smartreceipts.android.sync.response.listener.SyncListenersManager;
 
 /**
  * Defines a parse.com implementation of the {@link co.smartreceipts.android.sync.provider.SyncProvider}
@@ -19,13 +21,25 @@ public final class ParseSyncProvider implements SyncProvider {
     private final NetworkProvider mNetworkProvider;
     private final List<SyncRequest> mOutstandingRequests;
     private final ParseTripSyncHelper mParseSyncTripProvider;
+    private final SyncListenersManager mSyncListenersManager;
 
     public ParseSyncProvider(@NonNull NetworkProvider networkProvider) {
         mNetworkProvider = networkProvider;
         mOutstandingRequests = new CopyOnWriteArrayList<SyncRequest>();
-        mParseSyncTripProvider = new ParseTripSyncHelper();
+        mSyncListenersManager = new SyncListenersManager();
+        mParseSyncTripProvider = new ParseTripSyncHelper(mSyncListenersManager);
     }
 
+
+    @Override
+    public boolean registerListener(@NonNull SyncListener listener) {
+        return mSyncListenersManager.registerListener(listener);
+    }
+
+    @Override
+    public boolean unregisterListener(@NonNull SyncListener listener) {
+        return mSyncListenersManager.unregisterListener(listener);
+    }
 
     @Override
     public boolean supportsSynchronization(@NonNull SyncRequest request) {

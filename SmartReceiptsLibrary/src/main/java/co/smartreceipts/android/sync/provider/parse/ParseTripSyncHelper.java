@@ -15,6 +15,7 @@ import co.smartreceipts.android.sync.model.factory.SyncableBuilderFactory;
 import co.smartreceipts.android.sync.request.SyncRequest;
 import co.smartreceipts.android.sync.response.SyncResponse;
 import co.smartreceipts.android.sync.response.impl.TripSyncResponse;
+import co.smartreceipts.android.sync.response.listener.SyncListenersManager;
 
 /**
  * Handles the process of submitting a {@link co.smartreceipts.android.sync.request.SyncRequest} to the Parse
@@ -26,11 +27,14 @@ public class ParseTripSyncHelper extends AbstractParseSyncHelper<Trip> {
 
     private static final String TRIPS = "Trips";
 
+    public ParseTripSyncHelper(@NonNull SyncListenersManager syncListenersManager) {
+        super(syncListenersManager);
+    }
+
     @Override
     protected void onSubmitSyncRequestWithNetwork(@NonNull final SyncRequest<Trip> request) {
         final ParseObject parseObject = new ParseObject(TRIPS);
         final Trip trip = request.getRequestData();
-        trip.getSyncMetadata().getStatus() == SyncStatus.Synced
         parseObject.put(DatabaseHelper.TripsTable.COLUMN_NAME, trip.getName());
         parseObject.put(DatabaseHelper.TripsTable.COLUMN_FROM, trip.getStartDate());
         parseObject.put(DatabaseHelper.TripsTable.COLUMN_TO, trip.getEndDate());
