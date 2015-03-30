@@ -1,18 +1,54 @@
 package co.smartreceipts.android.sync.request;
 
+import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Tracks different available request types
+ * Provides an {@link java.lang.Enum} implementation of the {@link SyncRequestType}
+ * interface
  *
- * @author Will Baumann
+ * @author williambaumann
  */
-public interface SyncRequestType extends Parcelable {
+public enum SyncRequestType implements Parcelable {
+    Get("Get"), Insert("Insert"), Update("Update"), Delete("Delete");
 
-    /**
-     * Gets the type of the request
-     *
-     * @return the type as a {@link java.lang.String}
-     */
-    String getType();
+    private final String mType;
+
+    private SyncRequestType(String type) {
+        mType = type;
+    }
+
+    public String getType() {
+        return mType;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.mType);
+    }
+
+    public static final Creator<SyncRequestType> CREATOR = new Creator<SyncRequestType>() {
+        public SyncRequestType createFromParcel(Parcel source) {
+            return getEnumFromType(source.readString());
+        }
+
+        public SyncRequestType[] newArray(int size) {
+            return new SyncRequestType[size];
+        }
+    };
+
+
+    public static SyncRequestType getEnumFromType(String requestType) {
+        for (SyncRequestType syncRequestTypeEnum : SyncRequestType.values()) {
+            if (syncRequestTypeEnum.getType().equals(requestType)) {
+                return syncRequestTypeEnum;
+            }
+        }
+        throw new IllegalArgumentException("Invalud Request Type was provided: " + requestType);
+    }
 }
