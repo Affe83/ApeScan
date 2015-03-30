@@ -2,6 +2,7 @@ package co.smartreceipts.android.sync.request.impl;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import co.smartreceipts.android.model.Receipt;
 import co.smartreceipts.android.sync.request.SyncRequestType;
@@ -14,11 +15,11 @@ import co.smartreceipts.android.sync.request.SyncRequestType;
  */
 public class ReceiptSyncRequest {
 
-    public ReceiptSyncRequest(Receipt requestData, SyncRequestType requestType) {
+    public ReceiptSyncRequest(@NonNull Receipt requestData, @NonNull SyncRequestType requestType) {
         // super(requestData, requestType, Receipt.class);
     }
 
-    private ReceiptSyncRequest(Parcel in) {
+    private ReceiptSyncRequest(@NonNull Parcel in) {
         // super(in);
     }
 

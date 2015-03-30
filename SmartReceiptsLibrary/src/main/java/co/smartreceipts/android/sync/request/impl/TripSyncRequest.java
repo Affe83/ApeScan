@@ -1,6 +1,7 @@
 package co.smartreceipts.android.sync.request.impl;
 
 import android.os.Parcel;
+import android.support.annotation.NonNull;
 
 import co.smartreceipts.android.model.Trip;
 import co.smartreceipts.android.sync.request.SyncRequestType;
@@ -13,7 +14,7 @@ import co.smartreceipts.android.sync.request.SyncRequestType;
  */
 public class TripSyncRequest extends AbstractSyncRequest<Trip> {
 
-    public TripSyncRequest(Trip requestData, SyncRequestType requestType) {
+    public TripSyncRequest(@NonNull Trip requestData, @NonNull SyncRequestType requestType) {
         super(requestData, requestType, Trip.class);
     }
 
