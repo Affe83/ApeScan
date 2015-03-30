@@ -31,6 +31,7 @@ public final class TripBuilderFactory implements BuilderFactory<Trip> {
     private TimeZone _startTimeZone, _endTimeZone;
     private WBCurrency _defaultCurrency;
     private Filter<Receipt> _filter;
+    private SyncMetadata _syncMetadata;
     private Source _source;
 
     public TripBuilderFactory() {
@@ -43,6 +44,7 @@ public final class TripBuilderFactory implements BuilderFactory<Trip> {
         _source = Source.Undefined;
         _startTimeZone = TimeZone.getDefault();
         _endTimeZone = TimeZone.getDefault();
+        _syncMetadata = SyncMetadata.NEVER_SYNCED;
     }
 
     public TripBuilderFactory setDirectory(@NonNull File directory) {
@@ -151,6 +153,11 @@ public final class TripBuilderFactory implements BuilderFactory<Trip> {
         return this;
     }
 
+    public TripBuilderFactory setSyncMetaData(@NonNull SyncMetadata syncMetaData) {
+        _syncMetadata = syncMetaData;
+        return this;
+    }
+
     public TripBuilderFactory setSourceAsCache() {
         _source = Source.Cache;
         return this;
@@ -159,6 +166,6 @@ public final class TripBuilderFactory implements BuilderFactory<Trip> {
     @Override
     @NonNull
     public Trip build() {
-        return new DefaultTripImpl(_dir, _startDate, _startTimeZone, _endDate, _endTimeZone, _defaultCurrency, _comment, _costCenter, _filter, _source, SyncMetadata.NEVER_SYNCED);
+        return new DefaultTripImpl(_dir, _startDate, _startTimeZone, _endDate, _endTimeZone, _defaultCurrency, _comment, _costCenter, _filter, _source, _syncMetadata);
     }
 }

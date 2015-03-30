@@ -13,6 +13,8 @@ import co.smartreceipts.android.sync.model.SyncSource;
 import co.smartreceipts.android.sync.model.SyncStatus;
 import co.smartreceipts.android.sync.model.factory.SyncableBuilderFactory;
 import co.smartreceipts.android.sync.request.SyncRequest;
+import co.smartreceipts.android.sync.request.SyncRequestType;
+import co.smartreceipts.android.sync.response.SyncError;
 import co.smartreceipts.android.sync.response.SyncResponse;
 import co.smartreceipts.android.sync.response.impl.TripSyncResponse;
 import co.smartreceipts.android.sync.response.listener.SyncListenersManager;
@@ -32,7 +34,28 @@ public class ParseTripSyncHelper extends AbstractParseSyncHelper<Trip> {
     }
 
     @Override
-    protected void onSubmitSyncRequestWithNetwork(@NonNull final SyncRequest<Trip> request) {
+    protected void onSubmitSyncRequestWithNetwork(@NonNull SyncRequest<Trip> request) {
+        switch (request.getSyncRequestType()) {
+            case Get:
+                submitGetRequest(request);
+                break;
+            case Insert:
+            case Update:
+                submitInsertUpdateRequest(request);
+                break;
+            case Delete:
+                submitDeleteRequest(request);
+                break;
+        }
+    }
+
+
+    private void submitGetRequest(@NonNull final SyncRequest<Trip> request) {
+
+    }
+
+
+    private void submitInsertUpdateRequest(@NonNull final SyncRequest<Trip> request) {
         final ParseObject parseObject = new ParseObject(TRIPS);
         final Trip trip = request.getRequestData();
         parseObject.put(DatabaseHelper.TripsTable.COLUMN_NAME, trip.getName());
@@ -60,13 +83,18 @@ public class ParseTripSyncHelper extends AbstractParseSyncHelper<Trip> {
                     tripBuilder.setEndTimeZone(trip.getEndTimeZone());
                     tripBuilder.setComment(trip.getComment());
                     tripBuilder.setCostCenter(trip.getCostCenter());
-                    // TODO: tripBuilder.setSync(...);
+                    tripBuilder.setSyncMetaData(syncableBuilderFactory.build());
                     final SyncResponse<Trip> syncResponse = new TripSyncResponse(tripBuilder.build(), request);
+                    notifySyncSuccess(request.getSyncRequestType(), syncResponse);
                 } else {
                     // TODO: Return sync error
                 }
             }
         });
+    }
+
+    private void submitDeleteRequest(@NonNull final SyncRequest<Trip> request) {
+
     }
 
 }
