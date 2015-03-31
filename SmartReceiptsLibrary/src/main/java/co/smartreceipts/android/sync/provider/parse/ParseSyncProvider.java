@@ -27,7 +27,7 @@ public final class ParseSyncProvider implements SyncProvider {
         mNetworkProvider = networkProvider;
         mOutstandingRequests = new CopyOnWriteArrayList<SyncRequest>();
         mSyncListenersManager = new SyncListenersManager();
-        mParseSyncTripProvider = new ParseTripSyncHelper(mSyncListenersManager);
+        mParseSyncTripProvider = new ParseTripSyncHelper(mSyncListenersManager, null);
     }
 
 

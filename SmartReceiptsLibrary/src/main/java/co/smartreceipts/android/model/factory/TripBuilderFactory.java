@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.TimeZone;
 
 import co.smartreceipts.android.filters.Filter;
@@ -57,6 +58,11 @@ public final class TripBuilderFactory implements BuilderFactory<Trip> {
         return this;
     }
 
+    public TripBuilderFactory setStartDate(@NonNull java.util.Date startDate) {
+        _startDate = new Date(new Timestamp(startDate.getTime()).getTime());
+        return this;
+    }
+
     public TripBuilderFactory setStartDate(long startDate) {
         _startDate = new Date(startDate);
         return this;
@@ -64,6 +70,11 @@ public final class TripBuilderFactory implements BuilderFactory<Trip> {
 
     public TripBuilderFactory setEndDate(@NonNull Date endDate) {
         _endDate = endDate;
+        return this;
+    }
+
+    public TripBuilderFactory setEndDate(@NonNull java.util.Date endDate) {
+        _endDate = new Date(new Timestamp(endDate.getTime()).getTime());
         return this;
     }
 

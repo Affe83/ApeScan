@@ -9,7 +9,25 @@ import co.smartreceipts.android.model.Value;
  */
 public enum SyncStatus implements Value {
 
-    NeverSynced("never_synced"), Synced("synced"), InProgress("in_progress");
+    /**
+     * Acts as a default value for items that have never been synced before
+     */
+    NeverSynced("never_synced"),
+
+    /**
+     * Indicates that we've successfully synced an item
+     */
+    Synced("synced"),
+
+    /**
+     * Indicates that we've updated an item that was previously synced (and hence it's out of date)
+     */
+    NotSynced("not_synced"),
+
+    /**
+     * Indicates that we've deleted an item
+     */
+    Deleted("deleted");
 
     private final String mValue;
 
