@@ -13,9 +13,10 @@ import co.smartreceipts.android.sync.model.SyncSource;
 import co.smartreceipts.android.sync.model.SyncStatus;
 import co.smartreceipts.android.sync.model.factory.SyncableBuilderFactory;
 import co.smartreceipts.android.sync.request.SyncRequest;
-import co.smartreceipts.android.sync.request.SyncRequestType;
 import co.smartreceipts.android.sync.response.SyncError;
 import co.smartreceipts.android.sync.response.SyncResponse;
+import co.smartreceipts.android.sync.response.impl.SyncErrorTypesEnum;
+import co.smartreceipts.android.sync.response.impl.TripSyncError;
 import co.smartreceipts.android.sync.response.impl.TripSyncResponse;
 import co.smartreceipts.android.sync.response.listener.SyncListenersManager;
 
@@ -88,7 +89,8 @@ public class ParseTripSyncHelper extends AbstractParseSyncHelper<Trip> {
                     notifySyncSuccess(request.getSyncRequestType(), syncResponse);
                 } else {
                     // TODO: Get error codes from parse
-                    // TODO: Return sync error
+                    final SyncError<Trip> syncError = new TripSyncError(SyncErrorTypesEnum.Unknown, request);
+                    notifySyncError(request.getSyncRequestType(), syncError);
                 }
             }
         });
