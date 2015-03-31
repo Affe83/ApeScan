@@ -22,9 +22,11 @@ public interface SyncResponse<T extends Syncable> extends Parcelable {
     SyncRequest<T> getRequest();
 
     /**
+     * Gets the syncable data that is contained in the response
+     *
      * @return - the data returned by this result
      */
     @NonNull
-    public T getResponse();
+    T getResponse();
 
 }

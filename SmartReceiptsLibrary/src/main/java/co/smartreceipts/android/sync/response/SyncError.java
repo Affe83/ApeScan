@@ -8,7 +8,7 @@ import co.smartreceipts.android.sync.request.SyncRequest;
 
 /**
  * This is used to encapsulate error data that may occur during a sync operation
- * 
+ *
  * @author Will Baumann
  */
 public interface SyncError<T extends Syncable> extends Parcelable {
@@ -21,9 +21,11 @@ public interface SyncError<T extends Syncable> extends Parcelable {
     SyncRequest<T> getRequest();
 
     /**
-     * @return - the {@link java.lang.String} containing the error message
+     * Gets the type of error
+     *
+     * @return - the {@link co.smartreceipts.android.sync.response.SyncErrorType} associated with this error
      */
     @NonNull
-    String getErrorMessage();
+    SyncErrorType getErrorType();
 
 }

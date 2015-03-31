@@ -51,7 +51,7 @@ public class ParseTripSyncHelper extends AbstractParseSyncHelper<Trip> {
 
 
     private void submitGetRequest(@NonNull final SyncRequest<Trip> request) {
-        
+
     }
 
 
