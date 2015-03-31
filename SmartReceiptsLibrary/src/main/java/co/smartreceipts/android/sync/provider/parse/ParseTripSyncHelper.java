@@ -51,7 +51,7 @@ public class ParseTripSyncHelper extends AbstractParseSyncHelper<Trip> {
 
 
     private void submitGetRequest(@NonNull final SyncRequest<Trip> request) {
-
+        
     }
 
 
@@ -87,6 +87,7 @@ public class ParseTripSyncHelper extends AbstractParseSyncHelper<Trip> {
                     final SyncResponse<Trip> syncResponse = new TripSyncResponse(tripBuilder.build(), request);
                     notifySyncSuccess(request.getSyncRequestType(), syncResponse);
                 } else {
+                    // TODO: Get error codes from parse
                     // TODO: Return sync error
                 }
             }
