@@ -23,6 +23,10 @@ import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
 import android.util.Log;
+
+import com.amazonaws.auth.CognitoCachingCredentialsProvider;
+import com.amazonaws.regions.Regions;
+
 import co.smartreceipts.android.activities.SmartReceiptsActivity;
 import co.smartreceipts.android.fragments.Settings;
 import co.smartreceipts.android.persistence.DatabaseHelper;
@@ -69,6 +73,13 @@ public class SmartReceiptsApplication extends GalleryAppImpl implements Flexable
         mPersistenceManager.initDatabase(); // TODO: Fix anti-pattern
 		mPersistenceManager.getPreferences().setVersionUpgradeListener(this); // Done so mPersistenceManager is not null
 																				// in onVersionUpgrade
+
+		// Initialize the Amazon Cognito credentials provider
+		CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
+				getApplicationContext(),
+				"us-east-1:cdcc971a-b67f-4bc0-9a12-291b5d416518", // Identity Pool ID
+				Regions.US_EAST_1 // Region
+		);
 	}
 
     @Deprecated
