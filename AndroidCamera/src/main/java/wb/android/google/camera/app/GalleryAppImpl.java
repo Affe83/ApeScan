@@ -28,6 +28,7 @@ import wb.android.google.camera.util.ThreadPool;
 import android.app.Application;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.multidex.MultiDex;
 
 public class GalleryAppImpl extends Application implements GalleryApp {
 
@@ -40,6 +41,12 @@ public class GalleryAppImpl extends Application implements GalleryApp {
     private ThreadPool mThreadPool;
     private DownloadCache mDownloadCache;
     private ArrayList<String> mErrorList;
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
 
     @Override
     public void onCreate() {

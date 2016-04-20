@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
+import co.smartreceipts.android.cognito.SmartReceiptsAuthenticationProvider;
 import co.smartreceipts.android.config.ConfigurationManager;
 import co.smartreceipts.android.config.DefaultConfigurationManager;
 import co.smartreceipts.android.model.Column;
@@ -74,12 +75,7 @@ public class SmartReceiptsApplication extends GalleryAppImpl implements Flexable
 		mPersistenceManager.getPreferences().setVersionUpgradeListener(this); // Done so mPersistenceManager is not null
 																				// in onVersionUpgrade
 
-		// Initialize the Amazon Cognito credentials provider
-		CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
-				getApplicationContext(),
-				"us-east-1:cdcc971a-b67f-4bc0-9a12-291b5d416518", // Identity Pool ID
-				Regions.US_EAST_1 // Region
-		);
+		new SmartReceiptsAuthenticationProvider().getIdentityId();
 	}
 
     @Deprecated

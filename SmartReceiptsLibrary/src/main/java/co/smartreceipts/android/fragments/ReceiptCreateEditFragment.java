@@ -57,8 +57,9 @@ import co.smartreceipts.android.widget.HideSoftKeyboardOnTouchListener;
 import co.smartreceipts.android.widget.NetworkRequestAwareEditText;
 import co.smartreceipts.android.widget.ShowSoftKeyboardOnFocusChangeListener;
 import co.smartreceipts.android.widget.UserSelectionTrackingOnItemSelectedListener;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
+
+import retrofit2.Call;
+import retrofit2.Response;
 import wb.android.autocomplete.AutoCompleteAdapter;
 
 public class ReceiptCreateEditFragment extends WBFragment implements View.OnFocusChangeListener, NetworkRequestAwareEditText.RetryListener, DatabaseHelper.ReceiptAutoCompleteListener {
@@ -596,11 +597,11 @@ public class ReceiptCreateEditFragment extends WBFragment implements View.OnFocu
             }
             mLastExchangeRateFetchCallback = new MemoryLeakSafeCallback<ExchangeRate, EditText>(exchangeRateBox) {
                 @Override
-                public void success(EditText editText, ExchangeRate exchangeRate, Response response) {
+                public void success(EditText editText, Call<ExchangeRate> exchangeRate, Response<ExchangeRate> response) {
                     if (exchangeRate != null) {
                         getWorkerManager().getLogger().logEvent(ReceiptCreateEditFragment.this, "Submit_Exchange_Rate_Success");
                         if (TextUtils.isEmpty(editText.getText())) {
-                            editText.setText(exchangeRate.getDecimalFormattedExchangeRate(exchangeRateCurrencyCode));
+                            editText.setText(response.body().getDecimalFormattedExchangeRate(exchangeRateCurrencyCode));
                         } else {
                             Log.w(TAG, "User already started typing... Ignoring exchange rate result");
                         }
@@ -613,8 +614,8 @@ public class ReceiptCreateEditFragment extends WBFragment implements View.OnFocu
                 }
 
                 @Override
-                public void failure(EditText editText, RetrofitError error) {
-                    Log.e(TAG, "" + error);
+                public void failure(EditText editText, Call<ExchangeRate> call, Throwable t) {
+                    Log.e(TAG, "" + call);
                     getWorkerManager().getLogger().logEvent(ReceiptCreateEditFragment.this, "Submit_Exchange_Rate_Failed");
                     exchangeRateBox.setCurrentState(NetworkRequestAwareEditText.State.Failure);
                 }
