@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/default_margin_size" >
+            android:padding="@dimen/default_outer_margin_size" >
             <AutoCompleteTextView
                 android:id="@+id/DIALOG_RECEIPTMENU_NAME"
                 android:layout_width="match_parent"

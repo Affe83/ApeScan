@@ -5,9 +5,12 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
+import co.smartreceipts.android.apis.hosts.BetaSmartReceiptsHostConfiguration;
+import co.smartreceipts.android.apis.hosts.ServiceManager;
 import co.smartreceipts.android.cognito.SmartReceiptsAuthenticationProvider;
 import co.smartreceipts.android.config.ConfigurationManager;
 import co.smartreceipts.android.config.DefaultConfigurationManager;
+import co.smartreceipts.android.identity.IdentityManager;
 import co.smartreceipts.android.model.Column;
 import co.smartreceipts.android.model.Receipt;
 import co.smartreceipts.android.model.impl.columns.receipts.ReceiptColumnDefinitions;
@@ -23,6 +26,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
@@ -45,7 +49,7 @@ import co.smartreceipts.android.workers.WorkerManager;
  */
 public class SmartReceiptsApplication extends GalleryAppImpl implements Flexable, Preferences.VersionUpgradeListener, DatabaseHelper.TableDefaultsCustomizer {
 
-	public static final String TAG = "SmartReceiptsApplication";
+	public static final String TAG = "SmartReceiptsApplicati";
 
 	private WorkerManager mWorkerManager;
 	private PersistenceManager mPersistenceManager;
@@ -53,6 +57,8 @@ public class SmartReceiptsApplication extends GalleryAppImpl implements Flexable
 	private Activity mCurrentActivity;
 	private Settings mSettings;
 	private ConfigurationManager mConfigurationManager;
+	private IdentityManager mIdentityManager;
+	private ServiceManager mServiceManager;
 	private boolean mDeferFirstRunDialog;
 
 	/**
@@ -75,7 +81,8 @@ public class SmartReceiptsApplication extends GalleryAppImpl implements Flexable
 		mPersistenceManager.getPreferences().setVersionUpgradeListener(this); // Done so mPersistenceManager is not null
 																				// in onVersionUpgrade
 
-		new SmartReceiptsAuthenticationProvider().getIdentityId();
+		mServiceManager = new ServiceManager(new BetaSmartReceiptsHostConfiguration());
+		mIdentityManager = new IdentityManager(this, mServiceManager);
 	}
 
     @Deprecated
@@ -152,6 +159,16 @@ public class SmartReceiptsApplication extends GalleryAppImpl implements Flexable
 
 	public PersistenceManager getPersistenceManager() {
 		return mPersistenceManager;
+	}
+
+	@NonNull
+	public IdentityManager getIdentityManager() {
+		return mIdentityManager;
+	}
+
+	@NonNull
+	public ServiceManager getServiceManager() {
+		return mServiceManager;
 	}
 
 	public Flex getFlex() {

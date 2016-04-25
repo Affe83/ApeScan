@@ -156,6 +156,13 @@
         <item name="android:textAllCaps">true</item>
     </style>
 
+    <style name="Widget.SmartReceipts.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">@style/Widget.SmartReceipts.TextView.Button</item>
+        <item name="android:background">@color/smart_receipts_colorPrimaryDark</item>
+    </style>
+
     <style name="Widget.SmartReceipts.FloatingActionButton">
         <item name="fab_colorNormal">@color/smart_receipts_colorPrimaryDark</item>
         <item name="fab_colorPressed">@color/smart_receipts_colorPrimaryDark_pressed</item>
