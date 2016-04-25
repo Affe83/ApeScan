@@ -11,6 +11,6 @@ import retrofit2.http.POST;
  */
 public interface LoginService {
 
-    @POST("users/sign_in")
+    @POST("api/users/log_in")
     Call<UserIdResponse> logIn(@NonNull @Body LoginPayload loginPayload);
 }

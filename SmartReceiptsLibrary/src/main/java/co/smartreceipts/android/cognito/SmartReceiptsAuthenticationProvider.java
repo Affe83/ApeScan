@@ -41,8 +41,7 @@ public class SmartReceiptsAuthenticationProvider extends AWSAbstractCognitoDevel
     public String getIdentityId() {
         final Retrofit restAdapter = new RetrofitFactory().get();
         final LoginService loginService = restAdapter.create(LoginService.class);
-        final LoginPayload request = new LoginPayload(new LoginParams("login", "user", "pass", null));
-        final String json = new Gson().toJson(request);
+        final LoginPayload request = new LoginPayload(new LoginParams("login", "user", "password", null));
         loginService.logIn(request).enqueue(new Callback<UserIdResponse>() {
             @Override
             public void onResponse(Call<UserIdResponse> call, retrofit2.Response<UserIdResponse> response) {
